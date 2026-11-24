@@ -54,14 +54,15 @@ pnpm run deploy               # runs migrations on D1, builds, deploys
 
 `CLOUDFLARE_ENV` selects an environment; see the commented `env` example in `wrangler.jsonc`.
 
-For Cloudflare Workers Builds (git-connected deploys), set the build command to `pnpm build` and add `PAYLOAD_SECRET` as a secret.
+For Cloudflare Workers Builds (git-connected deploys), set the build command to `pnpm build` and the deploy command to `npx wrangler deploy`, and add `PAYLOAD_SECRET` as a secret. `pnpm build` runs `opennextjs-cloudflare build`, which `wrangler deploy` needs; a plain `next build` fails at the deploy step with "Could not find compiled Open Next config".
 
 ## Scripts
 
 | Script                        | Purpose                                            |
 | ----------------------------- | -------------------------------------------------- |
 | `pnpm dev`                    | Local dev server (uses your Cloudflare bindings)   |
-| `pnpm build`                  | Next.js production build                           |
+| `pnpm build`                  | OpenNext build (Next build + Worker bundle)        |
+| `pnpm run build:next`         | Plain Next.js build (used by OpenNext internally)  |
 | `pnpm run deploy`             | Migrate D1 and deploy to Cloudflare                |
 | `pnpm preview`                | Build and preview in the Workers runtime           |
 | `pnpm run generate:types`     | Regenerate Cloudflare and Payload types            |
