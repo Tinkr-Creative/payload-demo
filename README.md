@@ -11,7 +11,17 @@ A base project for [Payload 3](https://payloadcms.com) running on Cloudflare Wor
 | Storage   | R2 via `@payloadcms/storage-r2`               |
 | Tooling   | pnpm 11, Node 24, Vitest, Playwright          |
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Tinkr-Creative/payload-demo)
+
 **Requires the paid Workers plan** — the bundle exceeds the free plan's size limit.
+
+## One-click deploy
+
+The **Deploy to Cloudflare** button above clones this repo into your GitHub account, creates the D1 database and R2 bucket, asks you for `PAYLOAD_SECRET` (generate one with `openssl rand -hex 32`), and sets up Workers Builds so every push to your production branch deploys.
+
+The build and deploy commands come from `package.json`: `pnpm build` and `pnpm run deploy`. The deploy script applies your Payload migrations to D1 before publishing, so schema changes (including ones from Payload upgrades) ship automatically. Create migrations locally with `pnpm payload migrate:create` and commit them.
+
+If you set Workers Builds up by hand instead, use the same two commands, with the deploy command as `pnpm run deploy` (not `npx wrangler deploy`, which skips migrations).
 
 ## Start a new project from this template
 
@@ -54,7 +64,7 @@ pnpm run deploy               # runs migrations on D1, builds, deploys
 
 `CLOUDFLARE_ENV` selects an environment; see the commented `env` example in `wrangler.jsonc`.
 
-For Cloudflare Workers Builds (git-connected deploys), set the build command to `pnpm build` and the deploy command to `npx wrangler deploy`, and add `PAYLOAD_SECRET` as a secret. `pnpm build` runs `opennextjs-cloudflare build`, which `wrangler deploy` needs; a plain `next build` fails at the deploy step with "Could not find compiled Open Next config".
+For Cloudflare Workers Builds (git-connected deploys), set the build command to `pnpm build` and the deploy command to `pnpm run deploy`, and add `PAYLOAD_SECRET` as a secret. `pnpm build` runs `opennextjs-cloudflare build`, which `wrangler deploy` needs; a plain `next build` fails at the deploy step with "Could not find compiled Open Next config".
 
 ## Scripts
 
