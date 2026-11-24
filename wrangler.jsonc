@@ -11,6 +11,17 @@
     // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
     "global_fetch_strictly_public",
   ],
+  // Workers Logs + Traces. View in the Cloudflare dashboard under Observability.
+  // see https://developers.cloudflare.com/workers/observability/
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": true,
+    },
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
