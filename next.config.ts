@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ],
   },
+  // Single build worker: with remote bindings, parallel workers each start a
+  // workerd that contends for the same local SQLite state (SQLITE_BUSY).
+  experimental: { cpus: 1 },
   // Packages with Cloudflare Workers (workerd) specific code
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
   serverExternalPackages: ['jose', 'pg-cloudflare'],
